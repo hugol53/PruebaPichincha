@@ -29,4 +29,4 @@ Then status 200
   Scenario: T-API-HU-RET-445-CA01-prueba2 exitosa 200 - karate
     Given path 'products',3
     When method GET
-    Then status 200
+    Then status 2002
