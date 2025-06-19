@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'com.intuit.karate:karate-junit5:1.4.1'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '/*.java'
+        }
+    }
+}
+
+
+
+test {
+    useJUnitPlatform()
+    // Incluye esto para que Karate pueda encontrar los archivos .feature
+    systemProperty "karate.options", System.properties.getProperty("karate.options", "--tags ~@ignore")
+    systemProperty "karate.env", System.properties.getProperty("karate.env", "dev")
+    outputs.upToDateWhen { false }
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+}
